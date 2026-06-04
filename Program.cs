@@ -35,3 +35,4 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 
 
 //Comentário do Marcelo de Oliveira
+//Outro comentário do Marcelo de Oliveira
