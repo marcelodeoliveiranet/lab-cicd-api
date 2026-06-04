@@ -1,0 +1,6 @@
+@LabCicdApi8_HostAddress = http://localhost:5139
+
+GET {{LabCicdApi8_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

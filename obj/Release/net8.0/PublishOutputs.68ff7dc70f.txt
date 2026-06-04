@@ -1,0 +1,7 @@
+D:\Projetos\C#\LabCicdApi8\publish\LabCicdApi8.exe
+D:\Projetos\C#\LabCicdApi8\publish\appsettings.Development.json
+D:\Projetos\C#\LabCicdApi8\publish\appsettings.json
+D:\Projetos\C#\LabCicdApi8\publish\LabCicdApi8.dll
+D:\Projetos\C#\LabCicdApi8\publish\LabCicdApi8.deps.json
+D:\Projetos\C#\LabCicdApi8\publish\LabCicdApi8.runtimeconfig.json
+D:\Projetos\C#\LabCicdApi8\publish\LabCicdApi8.pdb
