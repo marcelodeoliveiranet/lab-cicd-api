@@ -26,6 +26,13 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 });
 
+app.MapGet("/mensagem", () =>
+{
+    var mensagem = Environment.GetEnvironmentVariable("MENSAGEM_SECRETA") 
+                   ?? "Variável não configurada";
+    return new { mensagem };
+});
+
 app.Run();
 
 public record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
