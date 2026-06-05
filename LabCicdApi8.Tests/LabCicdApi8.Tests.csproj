@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LabCicdApi8\LabCicdApi8.csproj" />
+    <ProjectReference Include="..\LabCicdApi8.csproj" />
   </ItemGroup>
 
 </Project>
