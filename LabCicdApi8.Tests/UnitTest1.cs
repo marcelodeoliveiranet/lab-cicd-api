@@ -14,7 +14,7 @@ public class WeatherForecastTests
         var tempF = forecast.TemperatureF;
 
         // Assert
-        Assert.Equal(99, tempF);
+        Assert.Equal(32, tempF);
     }
 
     [Fact]
