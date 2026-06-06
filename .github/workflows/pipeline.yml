@@ -77,7 +77,8 @@ jobs:
           aws elasticbeanstalk update-environment \
             --application-name ${{ env.EB_APPLICATION }} \
             --environment-name Lab-cicd-api-staging \
-            --version-label "v-${{ github.sha }}"
+            --version-label "v-${{ github.sha }}" \
+            --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=MENSAGEM_SECRETA,Value="${{ secrets.MENSAGEM_SECRETA }}"
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -99,4 +100,5 @@ jobs:
           aws elasticbeanstalk update-environment \
             --application-name ${{ env.EB_APPLICATION }} \
             --environment-name Lab-cicd-api-prod \
-            --version-label "v-${{ github.sha }}"
+            --version-label "v-${{ github.sha }}" \
+            --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=MENSAGEM_SECRETA,Value="${{ secrets.MENSAGEM_SECRETA }}"
