@@ -1,0 +1,19 @@
+name: Lab CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Hello World
+        run: echo "Pipeline do GitHub Actions funcionando!"
+
+      - name: Mostrar estrutura do projeto
+        run: ls -la
