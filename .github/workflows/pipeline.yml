@@ -3,17 +3,27 @@ name: Lab CI/CD Pipeline
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  hello-world:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout do codigo
         uses: actions/checkout@v4
 
-      - name: Hello World
-        run: echo "Pipeline do GitHub Actions funcionando!"
+      - name: Instalar .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-      - name: Mostrar estrutura do projeto
-        run: ls -la
+      - name: Restaurar dependencias
+        run: dotnet restore LabCicdApi8.Tests/LabCicdApi8.Tests.csproj
+
+      - name: Compilar
+        run: dotnet build LabCicdApi8.csproj -c Release --no-restore
+
+      - name: Rodar testes
+        run: dotnet test LabCicdApi8.Tests/LabCicdApi8.Tests.csproj --no-restore --logger "console;verbosity=normal"
