@@ -54,10 +54,8 @@ jobs:
         run: dotnet publish LabCicdApi8.csproj -c Release -r linux-x64 --no-self-contained -o ./staging
 
       - name: Copiar arquivos necessarios
-        run: |
-          cp Procfile ./staging/Procfile
-          cp -r .ebextensions ./staging/.ebextensions
-
+        run: cp Procfile ./staging/Procfile
+        
       - name: Criar zip para deploy
         run: cd staging && zip -r ../app.zip .
 
@@ -96,7 +94,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy no Beanstalk Producao
-        run: |
+        run: |  
           aws elasticbeanstalk update-environment \
             --application-name ${{ env.EB_APPLICATION }} \
             --environment-name Lab-cicd-api-prod \
