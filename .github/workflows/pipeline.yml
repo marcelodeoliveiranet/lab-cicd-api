@@ -9,7 +9,6 @@ on:
 env:
   AWS_REGION: us-east-1
   EB_APPLICATION: lab-cicd-api
-  EB_ENVIRONMENT: Lab-cicd-api-staging
 
 jobs:
   build-and-test:
@@ -33,10 +32,11 @@ jobs:
       - name: Rodar testes
         run: dotnet test LabCicdApi8.Tests/LabCicdApi8.Tests.csproj --no-restore --logger "console;verbosity=normal"
 
-  deploy:
+  deploy-staging:
     runs-on: ubuntu-latest
     needs: build-and-test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: staging
     permissions:
       id-token: write
       contents: read
@@ -67,7 +67,7 @@ jobs:
           role-to-assume: arn:aws:iam::929514687054:role/github-actions-deploy
           aws-region: us-east-1
 
-      - name: Deploy no Elastic Beanstalk
+      - name: Deploy no Beanstalk Staging
         run: |
           aws s3 cp app.zip s3://elasticbeanstalk-us-east-1-929514687054/lab-cicd-api/app-${{ github.sha }}.zip
           aws elasticbeanstalk create-application-version \
@@ -76,5 +76,27 @@ jobs:
             --source-bundle S3Bucket="elasticbeanstalk-us-east-1-929514687054",S3Key="lab-cicd-api/app-${{ github.sha }}.zip"
           aws elasticbeanstalk update-environment \
             --application-name ${{ env.EB_APPLICATION }} \
-            --environment-name ${{ env.EB_ENVIRONMENT }} \
+            --environment-name Lab-cicd-api-staging \
+            --version-label "v-${{ github.sha }}"
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    environment: production
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Configurar credenciais AWS via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::929514687054:role/github-actions-deploy
+          aws-region: us-east-1
+
+      - name: Deploy no Beanstalk Producao
+        run: |
+          aws elasticbeanstalk update-environment \
+            --application-name ${{ env.EB_APPLICATION }} \
+            --environment-name Lab-cicd-api-prod \
             --version-label "v-${{ github.sha }}"
