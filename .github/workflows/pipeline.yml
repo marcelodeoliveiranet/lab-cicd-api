@@ -9,7 +9,7 @@ on:
 env:
   AWS_REGION: us-east-1
   EB_APPLICATION: lab-cicd-api
-  EB_ENVIRONMENT: lab-cicd-api-env
+  EB_ENVIRONMENT: Lab-cicd-api-staging
 
 jobs:
   build-and-test:
